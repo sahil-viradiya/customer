@@ -1,0 +1,290 @@
+{
+  "project_info": {
+    "project_number": "1049699819506",
+    "project_id": "stackfood-bd3ee",
+    "storage_bucket": "stackfood-bd3ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:c80cf797b22c81f089956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-bpmd08000i93dfr205aideoicusaj7vq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food",
+            "certificate_hash": "9b0733b6ffecd24da16ceaaacdad4b538565c884"
+          }
+        },
+        {
+          "client_id": "1049699819506-c1g9n9s4n8fb8lfvt6ihopsbb39t4una.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food",
+            "certificate_hash": "140f4f38899f0c9938d86dd6ed3cba995e5724d3"
+          }
+        },
+        {
+          "client_id": "1049699819506-gdmkdga8uj8vpg7rnga48l469gogpj62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food",
+            "certificate_hash": "550843af4a3b4a2ca750721b8a58a9f493478aa7"
+          }
+        },
+        {
+          "client_id": "1049699819506-uc3l2o3o2senjr2a6i955tc8m96nm4ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food",
+            "certificate_hash": "8cdf2c794da1c797e59cf36d6630d8f5e5d0c9fc"
+          }
+        },
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:490a8d64ef54403889956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food_delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:772945f09f420a4789956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food_deliveryman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:0cf463b810ec5be589956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food_restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:a4fc77fe78938bc889956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-8dga73jjtr36sd82cd5ijhgcu0p14p3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food_user",
+            "certificate_hash": "9b0733b6ffecd24da16ceaaacdad4b538565c884"
+          }
+        },
+        {
+          "client_id": "1049699819506-hffhjq1f4n4s4l7rrb954nfirjgimjep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food_user",
+            "certificate_hash": "140f4f38899f0c9938d86dd6ed3cba995e5724d3"
+          }
+        },
+        {
+          "client_id": "1049699819506-mpkj879dmkvpj2fq88v77m0dtepgcc62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food_user",
+            "certificate_hash": "79c2a092588f1ab2728e007cee5dbac37941dcca"
+          }
+        },
+        {
+          "client_id": "1049699819506-n34piubp6phu3otr8cg7elorpufohqd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sixamtech.stack_food_user",
+            "certificate_hash": "8cdf2c794da1c797e59cf36d6630d8f5e5d0c9fc"
+          }
+        },
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049699819506:android:b809322f7994a88b89956b",
+        "android_client_info": {
+          "package_name": "com.sixamtech.stack_food_vandor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScz65YN8J9YoKdtKPl4ecCB3Vkc7iNL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049699819506-r9agjij7oigjssbffc2g6i2glegb21io.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049699819506-2magqnhq5chvmvj75v287hngt3qb13rr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sixamtech.stackFood"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
