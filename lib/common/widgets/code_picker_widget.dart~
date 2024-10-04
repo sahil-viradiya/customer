@@ -108,13 +108,6 @@ class _CodePickerWidgetState extends State<CodePickerWidget> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    elements = elements!.map((e) => e.localize(context)).toList();
-    _onInit(selectedItem!);
-  }
-
-  @override
   void didUpdateWidget(CodePickerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialSelection != widget.initialSelection) {
@@ -133,30 +126,50 @@ class _CodePickerWidgetState extends State<CodePickerWidget> {
     }
   }
   @override
+  void didUpdateWidget(CodePickerWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialSelection != widget.initialSelection) {
+      if (widget.initialSelection != null) {
+        selectedItem = elements!.firstWhere(
+                (e) =>
+            (e.code!.toUpperCase() ==
+                widget.initialSelection!.toUpperCase()) ||
+                (e.dialCode == widget.initialSelection) ||
+                (e.name!.toUpperCase() ==
+                    widget.initialSelection!.toUpperCase()),
+            orElse: () => elements![83]);
+      } else {
+        selectedItem = elements![83];
+      }
+      _onInit(selectedItem!);
+    }
+  }
+  
+  @override
   void initState() {
     super.initState();
     elements = getCountryList();
-    if (widget.countryList != null && widget.countryList!.isNotEmpty) {
+    if(widget.countryList != null && widget.countryList!.isNotEmpty){
       if (widget.initialSelection != null) {
         selectedItem = elements!.firstWhere(
                 (e) =>
             (e.code!.toUpperCase() == widget.initialSelection!.toUpperCase()) ||
                 (e.dialCode == widget.initialSelection) ||
                 (e.name!.toUpperCase() == widget.initialSelection!.toUpperCase()),
-            orElse: () => elements!.firstWhere((e) => e.dialCode == "+91") // Default to India (+91)
-        );
+            orElse: () => elements![83]);
       } else {
-        selectedItem = elements!.firstWhere((e) => e.dialCode == "+91"); // Default to India (+91)
+        selectedItem = elements![83];
       }
-
-      favoriteElements = elements!.where((e) =>
-      widget.favorite!.firstWhereOrNull((f) =>
-      e.code!.toUpperCase() == f.toUpperCase() ||
-          e.dialCode == f ||
-          e.name!.toUpperCase() == f.toUpperCase()) !=
-          null)
-          .toList();
-    }
+    
+    favoriteElements = elements!.where((e) =>
+    widget.favorite!.firstWhereOrNull((f) =>
+    e.code!.toUpperCase() == f.toUpperCase() ||
+    e.dialCode == f ||
+    e.name!.toUpperCase() == f.toUpperCase()) !=
+    null)
+    .toList();
+  }
+    
   }
   
   void showCountryCodePickerDialog() {

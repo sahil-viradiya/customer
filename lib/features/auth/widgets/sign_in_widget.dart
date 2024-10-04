@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stackfood_multivendor/common/models/response_model.dart';
@@ -25,7 +26,9 @@ import 'package:get/get.dart';
 class SignInWidget extends StatefulWidget {
   final bool exitFromApp;
   final bool backFromThis;
-  const SignInWidget({super.key, required this.exitFromApp, required this.backFromThis});
+
+  const SignInWidget(
+      {super.key, required this.exitFromApp, required this.backFromThis});
 
   @override
   SignInWidgetState createState() => SignInWidgetState();
@@ -43,9 +46,22 @@ class SignInWidgetState extends State<SignInWidget> {
   void initState() {
     super.initState();
     _formKeyLogin = GlobalKey<FormState>();
-    _countryDialCode = Get.find<AuthController>().getUserCountryCode().isNotEmpty ? Get.find<AuthController>().getUserCountryCode()
-        : CountryCode.fromCountryCode(Get.find<SplashController>().configModel!.country!).dialCode;
-    _phoneController.text =  Get.find<AuthController>().getUserNumber();
+    _countryDialCode =
+        Get.find<AuthController>().getUserCountryCode().isNotEmpty
+            ? Get.find<AuthController>().getUserCountryCode()
+            : CountryCode.fromCountryCode(
+                    Get.find<SplashController>().configModel!.country!)
+                .dialCode;
+    if (Get.find<AuthController>().getUserCountryCode().isNotEmpty) {
+      _countryDialCode = Get.find<AuthController>().getUserCountryCode();
+      log("country code==================================== $_countryDialCode");
+    }else if( Get.find<SplashController>().configModel!.country!.isNotEmpty){
+      _countryDialCode = Get.find<SplashController>().configModel!.country!;
+      log("country code========2============================ $_countryDialCode");
+
+    }
+
+    _phoneController.text = Get.find<AuthController>().getUserNumber();
     _passwordController.text = Get.find<AuthController>().getUserPassword();
 
     if (!kIsWeb) {
@@ -63,121 +79,163 @@ class SignInWidgetState extends State<SignInWidget> {
         padding: const EdgeInsets.only(right: 2.0),
         child: Form(
           key: _formKeyLogin,
-          child: Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: isDesktop ? MainAxisAlignment.start : MainAxisAlignment.center, children: [
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: isDesktop
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                SizedBox(height: isDesktop ? 30 : 0),
 
-            SizedBox(height: isDesktop ? 30 : 0),
+                CustomTextFieldWidget(
+                  hintText: 'xxx-xxx-xxxxx'.tr,
+                  controller: _phoneController,
+                  focusNode: _phoneFocus,
+                  nextFocus: _passwordFocus,
+                  inputType: TextInputType.phone,
+                  isPhone: true,
+                  onCountryChanged: (CountryCode countryCode) {
+                    _countryDialCode = countryCode.dialCode;
+                  },
+                  countryDialCode: _countryDialCode ??
+                      Get.find<LocalizationController>().locale.countryCode,
+                  labelText: 'phone'.tr,
+                  required: true,
+                  validator: (value) => ValidateCheck.validateEmptyText(
+                      value, "please_enter_phone_number".tr),
+                ),
+                const SizedBox(height: Dimensions.paddingSizeExtraLarge),
 
-            CustomTextFieldWidget(
-              hintText: 'xxx-xxx-xxxxx'.tr,
-              controller: _phoneController,
-              focusNode: _phoneFocus,
-              nextFocus: _passwordFocus,
-              inputType: TextInputType.phone,
-              isPhone: true,
-              onCountryChanged: (CountryCode countryCode) {
-                _countryDialCode = countryCode.dialCode;
-              },
-              countryDialCode: _countryDialCode ?? Get.find<LocalizationController>().locale.countryCode,
-              labelText: 'phone'.tr,
-              required: true,
-              validator: (value) => ValidateCheck.validateEmptyText(value, "please_enter_phone_number".tr),
-            ),
-            const SizedBox(height: Dimensions.paddingSizeExtraLarge),
+                CustomTextFieldWidget(
+                  hintText: '8_character'.tr,
+                  controller: _passwordController,
+                  focusNode: _passwordFocus,
+                  inputAction: TextInputAction.done,
+                  inputType: TextInputType.visiblePassword,
+                  prefixIcon: Icons.lock,
+                  isPassword: true,
+                  onSubmit: (text) => (GetPlatform.isWeb)
+                      ? _login(authController, _countryDialCode!)
+                      : null,
+                  labelText: 'password'.tr,
+                  required: true,
+                  validator: (value) => ValidateCheck.validateEmptyText(
+                      value, "please_enter_password".tr),
+                ),
+                SizedBox(
+                    height: ResponsiveHelper.isDesktop(context)
+                        ? Dimensions.paddingSizeDefault
+                        : Dimensions.paddingSizeExtraSmall),
 
-            CustomTextFieldWidget(
-              hintText: '8_character'.tr,
-              controller: _passwordController,
-              focusNode: _passwordFocus,
-              inputAction: TextInputAction.done,
-              inputType: TextInputType.visiblePassword,
-              prefixIcon: Icons.lock,
-              isPassword: true,
-              onSubmit: (text) => (GetPlatform.isWeb) ? _login(authController, _countryDialCode!) : null,
-              labelText: 'password'.tr,
-              required: true,
-              validator: (value) => ValidateCheck.validateEmptyText(value, "please_enter_password".tr),
-            ),
-            SizedBox(height: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeDefault : Dimensions.paddingSizeExtraSmall),
-
-
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              InkWell(
-                onTap: () => authController.toggleRememberMe(),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 24, width: 24,
-                      child: Checkbox(
-                        side: BorderSide(color: Theme.of(context).hintColor),
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: Theme.of(context).primaryColor,
-                        value: authController.isActiveRememberMe,
-                        onChanged: (bool? isChecked) => authController.toggleRememberMe(),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () => authController.toggleRememberMe(),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: Checkbox(
+                                side: BorderSide(
+                                    color: Theme.of(context).hintColor),
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                activeColor: Theme.of(context).primaryColor,
+                                value: authController.isActiveRememberMe,
+                                onChanged: (bool? isChecked) =>
+                                    authController.toggleRememberMe(),
+                              ),
+                            ),
+                            const SizedBox(width: Dimensions.paddingSizeSmall),
+                            Text('remember_me'.tr, style: robotoRegular),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: Dimensions.paddingSizeSmall),
+                      TextButton(
+                        style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                        onPressed: () {
+                          if (isDesktop) {
+                            Get.back();
+                            Get.dialog(const Center(
+                                child: ForgetPassScreen(
+                                    fromSocialLogin: false,
+                                    socialLogInModel: null,
+                                    fromDialog: true)));
+                          } else {
+                            Get.toNamed(
+                                RouteHelper.getForgotPassRoute(false, null));
+                          }
+                        },
+                        child: Text('${'forgot_password'.tr}?',
+                            style: robotoRegular.copyWith(
+                                color: Theme.of(context).primaryColor)),
+                      ),
+                    ]),
+                const SizedBox(height: Dimensions.paddingSizeLarge),
 
-                    Text('remember_me'.tr, style: robotoRegular),
-                  ],
+                isDesktop
+                    ? const SizedBox()
+                    : TramsConditionsCheckBoxWidget(
+                        authController: authController),
+                isDesktop
+                    ? const SizedBox()
+                    : const SizedBox(height: Dimensions.paddingSizeLarge),
+
+                CustomButtonWidget(
+                  height: isDesktop ? 50 : null,
+                  width: isDesktop ? 250 : null,
+                  buttonText: 'login'.tr,
+                  radius: isDesktop
+                      ? Dimensions.radiusSmall
+                      : Dimensions.radiusDefault,
+                  isBold: isDesktop ? false : true,
+                  isLoading: authController.isLoading,
+                  onPressed: authController.acceptTerms
+                      ? () => _login(authController, _countryDialCode!)
+                      : null,
                 ),
-              ),
+                const SizedBox(height: Dimensions.paddingSizeExtraLarge),
 
-              TextButton(
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: () {
-                  if(isDesktop) {
-                    Get.back();
-                    Get.dialog(const Center(child: ForgetPassScreen(fromSocialLogin: false, socialLogInModel: null, fromDialog: true)));
-                  } else {
-                    Get.toNamed(RouteHelper.getForgotPassRoute(false, null));
-                  }
-                },
-                child: Text('${'forgot_password'.tr}?', style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
-              ),
-            ]),
-            const SizedBox(height: Dimensions.paddingSizeLarge),
+                !isDesktop
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                            Text('do_not_have_account'.tr,
+                                style: robotoRegular.copyWith(
+                                    color: Theme.of(context).hintColor)),
+                            InkWell(
+                              onTap: authController.isLoading
+                                  ? null
+                                  : () {
+                                      if (isDesktop) {
+                                        Get.back();
+                                        Get.dialog(SignUpScreen(
+                                            exitFromApp: widget.exitFromApp));
+                                      } else {
+                                        Get.toNamed(
+                                            RouteHelper.getSignUpRoute());
+                                      }
+                                    },
+                              child: Padding(
+                                padding: const EdgeInsets.all(
+                                    Dimensions.paddingSizeExtraSmall),
+                                child: Text('sign_up'.tr,
+                                    style: robotoMedium.copyWith(
+                                        color: Theme.of(context).primaryColor)),
+                              ),
+                            ),
+                          ])
+                    : const SizedBox(),
 
-            isDesktop ? const SizedBox() : TramsConditionsCheckBoxWidget(authController: authController),
-            isDesktop ? const SizedBox() : const SizedBox(height: Dimensions.paddingSizeLarge),
+                const SizedBox(height: Dimensions.paddingSizeSmall),
 
-            CustomButtonWidget(
-              height: isDesktop ? 50 : null,
-              width:  isDesktop ? 250 : null,
-              buttonText: 'login'.tr,
-              radius: isDesktop ? Dimensions.radiusSmall : Dimensions.radiusDefault,
-              isBold: isDesktop ? false : true,
-              isLoading: authController.isLoading,
-              onPressed: authController.acceptTerms ? () => _login(authController, _countryDialCode!) : null,
-            ),
-            const SizedBox(height: Dimensions.paddingSizeExtraLarge),
+                const SocialLoginWidget(),
 
-            !isDesktop ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text('do_not_have_account'.tr, style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
-
-              InkWell(
-                onTap: authController.isLoading ? null : () {
-                  if(isDesktop){
-                    Get.back();
-                    Get.dialog(SignUpScreen(exitFromApp: widget.exitFromApp));
-                  }else{
-                    Get.toNamed(RouteHelper.getSignUpRoute());
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                  child: Text('sign_up'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
-                ),
-              ),
-            ]) : const SizedBox(),
-
-            const SizedBox(height: Dimensions.paddingSizeSmall),
-
-            const SocialLoginWidget(),
-
-            // isDesktop ? const SizedBox() : const GuestButtonWidget(),
-
-          ]),
+                // isDesktop ? const SizedBox() : const GuestButtonWidget(),
+              ]),
         ),
       );
     });
@@ -186,11 +244,12 @@ class SignInWidgetState extends State<SignInWidget> {
   void _login(AuthController authController, String countryDialCode) async {
     String phone = _phoneController.text.trim();
     String password = _passwordController.text.trim();
-    String numberWithCountryCode = countryDialCode+phone;
-    PhoneValid phoneValid = await CustomValidator.isPhoneValid(numberWithCountryCode);
+    String numberWithCountryCode = countryDialCode + phone;
+    PhoneValid phoneValid =
+        await CustomValidator.isPhoneValid(numberWithCountryCode);
     numberWithCountryCode = phoneValid.phone;
 
-    if(_formKeyLogin!.currentState!.validate()) {
+    if (_formKeyLogin!.currentState!.validate()) {
       if (phone.isEmpty) {
         showCustomSnackBar('enter_phone_number'.tr);
       } else if (!phoneValid.isValid) {
@@ -200,9 +259,13 @@ class SignInWidgetState extends State<SignInWidget> {
       } else if (password.length < 6) {
         showCustomSnackBar('password_should_be'.tr);
       } else {
-        authController.login(numberWithCountryCode, password, alreadyInApp: widget.backFromThis).then((status) async {
+        authController
+            .login(numberWithCountryCode, password,
+                alreadyInApp: widget.backFromThis)
+            .then((status) async {
           if (status.isSuccess) {
-            _processSuccessSetup(authController, phone, password, countryDialCode, status, numberWithCountryCode);
+            _processSuccessSetup(authController, phone, password,
+                countryDialCode, status, numberWithCountryCode);
           } else {
             showCustomSnackBar(status.message);
           }
@@ -211,29 +274,39 @@ class SignInWidgetState extends State<SignInWidget> {
     }
   }
 
-  Future<void> _processSuccessSetup(AuthController authController, String phone, String password, String countryDialCode, ResponseModel status, String numberWithCountryCode) async {
+  Future<void> _processSuccessSetup(
+      AuthController authController,
+      String phone,
+      String password,
+      String countryDialCode,
+      ResponseModel status,
+      String numberWithCountryCode) async {
     if (authController.isActiveRememberMe) {
-      authController.saveUserNumberAndPassword(phone, password, countryDialCode);
+      authController.saveUserNumberAndPassword(
+          phone, password, countryDialCode);
     } else {
       authController.clearUserNumberAndPassword();
     }
-    if(GetPlatform.isWeb){
+    if (GetPlatform.isWeb) {
       await Get.find<FavouriteController>().getFavouriteList();
     }
     String token = status.message!.substring(1, status.message!.length);
-    if(Get.find<SplashController>().configModel!.customerVerification! && int.parse(status.message![0]) == 0) {
+    if (Get.find<SplashController>().configModel!.customerVerification! &&
+        int.parse(status.message![0]) == 0) {
       List<int> encoded = utf8.encode(password);
       String data = base64Encode(encoded);
-      Get.toNamed(RouteHelper.getVerificationRoute(numberWithCountryCode, token, RouteHelper.signUp, data));
-    }else {
-      if(widget.backFromThis) {
-        if(ResponsiveHelper.isDesktop(Get.context)){
+      Get.toNamed(RouteHelper.getVerificationRoute(
+          numberWithCountryCode, token, RouteHelper.signUp, data));
+    } else {
+      if (widget.backFromThis) {
+        if (ResponsiveHelper.isDesktop(Get.context)) {
           Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false));
         } else {
           Get.back();
         }
-      }else {
-        Get.find<SplashController>().navigateToLocationScreen('sign-in', offNamed: true);
+      } else {
+        Get.find<SplashController>()
+            .navigateToLocationScreen('sign-in', offNamed: true);
       }
     }
   }

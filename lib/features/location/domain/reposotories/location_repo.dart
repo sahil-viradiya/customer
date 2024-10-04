@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:stackfood_multivendor/api/api_client.dart';
 import 'package:stackfood_multivendor/features/location/domain/models/zone_response_model.dart';
 import 'package:stackfood_multivendor/features/address/domain/models/zone_model.dart';
@@ -29,6 +31,7 @@ class LocationRepo implements LocationRepoInterface {
   @override
   Future<String> getAddressFromGeocode(LatLng latLng) async {
     Response response = await apiClient.getData('${AppConstants.geocodeUri}?lat=${latLng.latitude}&lng=${latLng.longitude}');
+    log("Location :-- ${response.body}");
     String address = 'Unknown Location Found';
     if(response.statusCode == 200 && response.body['status'] == 'OK') {
       address = response.body['results'][0]['formatted_address'].toString();

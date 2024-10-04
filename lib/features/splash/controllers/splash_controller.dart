@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:stackfood_multivendor/api/api_client.dart';
@@ -48,10 +50,15 @@ class SplashController extends GetxController implements GetxService {
   Future<bool> getConfigData({bool handleMaintenanceMode = false}) async {
     _hasConnection = true;
     _savedCookiesData = getCookiesData();
+    log("==========================model==============${splashServiceInterface.getConfigData()}");
     Response response = await splashServiceInterface.getConfigData();
+    log("==========================model==res============${response.body}");
+
     bool isSuccess = false;
     if(response.statusCode == 200) {
       _configModel = splashServiceInterface.prepareConfigData(response);
+      log("==========================config model==res============${_configModel?.country}");
+
       if(_configModel != null) {
         if(!GetPlatform.isWeb){
           bool isMaintenanceMode = _configModel!.maintenanceMode!;

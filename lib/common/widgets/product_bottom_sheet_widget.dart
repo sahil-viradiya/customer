@@ -252,20 +252,20 @@ class _ProductBottomSheetWidgetState extends State<ProductBottomSheetWidget> {
 
                                   Text('description'.tr, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge)),
 
-                                  (Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Container(
-                                    padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeExtraSmall, horizontal: Dimensions.paddingSizeSmall),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusExtraLarge),
-                                        color: Theme.of(context).cardColor,
-                                        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10, spreadRadius: 1)],
-                                    ),
-                                    child: Row(children: [
-                                      Image.asset(product!.veg == 1 ? Images.vegLogo : Images.nonVegLogo, height: 20, width: 20),
-                                      const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                                      Text(product!.veg == 1 ? 'veg'.tr : 'non_veg'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault)),
-                                    ]),
-                                  ) : const SizedBox(),
+                                  // (Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Container(
+                                  //   padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeExtraSmall, horizontal: Dimensions.paddingSizeSmall),
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.circular(Dimensions.radiusExtraLarge),
+                                  //       color: Theme.of(context).cardColor,
+                                  //       boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10, spreadRadius: 1)],
+                                  //   ),
+                                  //   child: Row(children: [
+                                  //     Image.asset(product!.veg == 1 ? Images.vegLogo : Images.nonVegLogo, height: 20, width: 20),
+                                  //     const SizedBox(width: Dimensions.paddingSizeSmall),
+                                  //
+                                  //     Text(product!.veg == 1 ? 'veg'.tr : 'non_veg'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault)),
+                                  //   ]),
+                                  // ) : const SizedBox(),
 
                                 ]),
                                 const SizedBox(height: Dimensions.paddingSizeExtraSmall),

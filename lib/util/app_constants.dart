@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class AppConstants {
   static const String appName = 'WeAreJK Customer';
+  static const String weAreJk = 'WeAreJK';
   static const double appVersion = 7.8;
 
   static const String fontFamily = 'Roboto';

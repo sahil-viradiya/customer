@@ -337,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(children: [
                                 Image.asset(Images.searchIcon, width: 25, height: 25),
                                 const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                Expanded(child: Text('are_you_hungry'.tr, style: robotoRegular.copyWith(
+                                Expanded(child: Text('search'.tr, style: robotoRegular.copyWith(
                                   fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor.withOpacity(0.6),
                                 ))),
                               ]),
@@ -369,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         _configModel!.mostReviewedFoods == 1 ?  const BestReviewItemViewWidget(isPopular: false) : const SizedBox(),
 
-                        const CuisineViewWidget(),
+                        // const CuisineViewWidget(),
 
                         _configModel.popularRestaurant == 1 ? const PopularRestaurantsViewWidget() : const SizedBox(),
 
